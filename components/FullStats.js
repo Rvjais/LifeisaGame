@@ -72,10 +72,13 @@ export default function FullStats({ history, goals, baseline, todayPoints, today
         }
 
         const losses = Object.values(lossMap).sort((a, b) => a.totalLoss - b.totalLoss);
-        const graphData = Object.keys(dailyPoints).sort().map(date => ({
-            date: date.slice(5), // MM-DD
-            points: dailyPoints[date]
-        }));
+        const graphData = Object.keys(dailyPoints).sort().map(date => {
+            const d = new Date(date);
+            return {
+                date: d.toLocaleDateString('en-US', { weekday: 'short' }), // Sun, Mon, Tue
+                points: dailyPoints[date]
+            };
+        });
 
         return { weekPoints, yearPoints, losses, graphData };
     }, [history, goals, todayPoints, todayCompletions]);

@@ -13,22 +13,30 @@ export const calculateLevel = (totalPoints, startDate) => {
     const decay = daysSinceStart * DAILY_DECAY;
     const netXp = Math.max(0, totalPoints - decay);
 
-    // Level 1 at 0 XP
-    // Level 2 at 500 XP
-    // Level 3 at 1500 XP (500 + 1000)
-    // Formula: Level = Math.floor((Math.sqrt(100 * (2 * totalPoints + 25)) + 50) / 100)
-    // Simplified: Level = 1 + Math.floor(totalPoints / 1000); -> Linear is boring.
+    // New Formula:
+    // Lvl 1 -> 2: 1000 XP
+    // Lvl 2 -> 3: 2000 XP (+1000 increment)
+    // Lvl 3 -> 4: 3500 XP (+1500 increment)
+    // Lvl 4 -> 5: 5500 XP (+2000 increment)
 
-    // Let's use a simple quadratic curve: XP = Level^2 * 100
-    // Level = Sqrt(XP / 100)
-    if (netXp < 0) return { level: 1, progress: 0, nextLevelXp: 100, currentLevelXp: 0, netXp, decay };
+    let level = 1;
+    let xpRequiredForNextLevel = 1000;
+    let increment = 1000;
+    let currentLevelBaseXp = 0;
 
-    const level = Math.floor(Math.sqrt(netXp / 100)) + 1;
-    const currentLevelXp = Math.pow(level - 1, 2) * 100;
-    const nextLevelXp = Math.pow(level, 2) * 100;
-    const progress = (netXp - currentLevelXp) / (nextLevelXp - currentLevelXp);
+    while (netXp >= currentLevelBaseXp + xpRequiredForNextLevel) {
+        currentLevelBaseXp += xpRequiredForNextLevel;
+        level++;
 
-    return { level, progress, nextLevelXp, currentLevelXp, netXp, decay };
+        // Prepare for next level
+        xpRequiredForNextLevel += increment;
+        increment += 500;
+    }
+
+    const nextLevelTotalXp = currentLevelBaseXp + xpRequiredForNextLevel;
+    const progress = (netXp - currentLevelBaseXp) / (nextLevelTotalXp - currentLevelBaseXp);
+
+    return { level, progress, nextLevelXp: nextLevelTotalXp, currentLevelXp: currentLevelBaseXp, netXp, decay };
 };
 
 export const calculateStreak = (history, baseline, todayPoints) => {

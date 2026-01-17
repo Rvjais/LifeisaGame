@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
     backupBtn: { flex: 1, backgroundColor: '#fff', padding: 14, borderRadius: 2, alignItems: 'center' },
     restoreBtn: { flex: 1, backgroundColor: '#000', borderWidth: 1, borderColor: '#333', padding: 14, borderRadius: 2, alignItems: 'center' },
     btnText: { fontSize: 14, fontWeight: '900', color: '#000', textTransform: 'uppercase', letterSpacing: 1 },
-    restoreBtnText: { color: '#fff' }
+    restoreBtnText: { color: '#fff' },
+    infoText: { fontSize: 12, color: '#ccc', lineHeight: 18, fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace' }
 });
 // Fix restore button text color
 styles.restoreBtn = { ...styles.restoreBtn, backgroundColor: '#fff' };

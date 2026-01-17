@@ -38,25 +38,23 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      const creds = await loadCredentials();
-      if (creds) {
-        setCredentials(creds);
-        // Attempt sync on load
-        await syncData(creds);
-      }
+      // Load all data in parallel
+      const [creds, h, g, b, n, currentProgress] = await Promise.all([
+        loadCredentials(),
+        loadHistory(),
+        loadGoals(),
+        loadBaseline(),
+        loadName(),
+        loadCurrentProgress()
+      ]);
 
-      const h = await loadHistory();
-      const g = await loadGoals();
-      const b = await loadBaseline();
-      const n = await loadName();
-
-      setHistory(h || []);
+      if (creds) setCredentials(creds);
+      if (h) setHistory(h);
       if (g) setGoals(g);
       if (b) setBaseline(b);
       if (n) setName(n);
 
       const today = todayKey();
-      const currentProgress = await loadCurrentProgress();
 
       // Check for rollover (if currentProgress is from a previous day)
       if (currentProgress && currentProgress.date !== today) {
@@ -88,6 +86,23 @@ export default function App() {
           setCompletions(map);
         }
       }
+
+      // Sync Logic: Prevent overwriting server with empty state
+      if (creds) {
+        if (g) {
+          // We have local goals. Push local state to server to sync offline changes.
+          await syncData(creds, {
+            name: n || null,
+            baseline: b || 50,
+            goals: g,
+            history: h || []
+          });
+        } else {
+          // No local goals (Fresh install). Pull from server.
+          await syncData(creds, {});
+        }
+      }
+
       setLoading(false);
     })();
   }, []);
@@ -173,8 +188,11 @@ export default function App() {
     return calculateStreak(history, baseline, todayPoints);
   }, [history, baseline, todayPoints]);
 
+  const [syncing, setSyncing] = useState(false);
+
   const syncData = async (creds, dataToPush = null) => {
     if (!creds) return;
+    setSyncing(true);
     try {
       const payload = {
         username: creds.username,
@@ -202,9 +220,17 @@ export default function App() {
           if (user.baseline) { setBaseline(user.baseline); saveBaseline(user.baseline); }
           if (user.name) { setName(user.name); saveName(user.name); }
         }
+        if (!dataToPush) {
+          Alert.alert('Success', 'Data synced successfully!');
+        }
+      } else {
+        Alert.alert('Error', 'Sync failed. Please check your connection.');
       }
     } catch (e) {
       console.log('Sync failed:', e);
+      Alert.alert('Error', 'Sync failed. Server unreachable.');
+    } finally {
+      setSyncing(false);
     }
   };
 
@@ -379,6 +405,7 @@ export default function App() {
         streak={streak}
         onBackup={() => syncData(credentials)}
         onRestore={handleLogout}
+        isSyncing={syncing}
       />
     </SafeAreaView>
   );

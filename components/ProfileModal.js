@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet, TextInput, Alert, ScrollView, Platform } from 'react-native';
+import { Modal, View, Text, TouchableOpacity, StyleSheet, TextInput, Alert, ScrollView, Platform, ActivityIndicator } from 'react-native';
 
-export default function ProfileModal({ visible, onClose, levelData, streak, onBackup, onRestore }) {
+export default function ProfileModal({ visible, onClose, levelData, streak, onBackup, onRestore, isSyncing }) {
 
     const handleLogout = () => {
-        Alert.alert(
-            'Logout',
-            'Are you sure you want to logout?',
-            [
-                { text: 'Cancel', style: 'cancel' },
-                { text: 'Logout', style: 'destructive', onPress: onRestore }
-            ]
-        );
+        if (Platform.OS === 'web') {
+            if (window.confirm('Are you sure you want to logout?')) {
+                onRestore();
+            }
+        } else {
+            Alert.alert(
+                'Logout',
+                'Are you sure you want to logout?',
+                [
+                    { text: 'Cancel', style: 'cancel' },
+                    { text: 'Logout', style: 'destructive', onPress: onRestore }
+                ]
+            );
+        }
     };
 
     return (
@@ -65,8 +71,8 @@ export default function ProfileModal({ visible, onClose, levelData, streak, onBa
                         </Text>
 
                         <View style={styles.buttons}>
-                            <TouchableOpacity style={styles.backupBtn} onPress={onBackup}>
-                                <Text style={styles.btnText}>Force Sync</Text>
+                            <TouchableOpacity style={styles.backupBtn} onPress={onBackup} disabled={isSyncing}>
+                                {isSyncing ? <ActivityIndicator color="#000" /> : <Text style={styles.btnText}>Force Sync</Text>}
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.restoreBtn, { borderColor: '#ff3b30' }]} onPress={handleLogout}>
                                 <Text style={[styles.btnText, { color: '#ff3b30' }]}>Logout</Text>

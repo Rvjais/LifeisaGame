@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet, TextInput, Alert, ScrollView } from 'react-native';
+import { Modal, View, Text, TouchableOpacity, StyleSheet, TextInput, Alert, ScrollView, Platform } from 'react-native';
 
 export default function ProfileModal({ visible, onClose, levelData, streak, onBackup, onRestore }) {
 
@@ -81,27 +81,27 @@ export default function ProfileModal({ visible, onClose, levelData, streak, onBa
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#f5f5f5' },
-    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#eee' },
-    title: { fontSize: 24, fontWeight: '700' },
+    container: { flex: 1, backgroundColor: '#000' },
+    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20, backgroundColor: '#111', borderBottomWidth: 1, borderBottomColor: '#333' },
+    title: { fontSize: 24, fontWeight: '900', color: '#fff', letterSpacing: 1, textTransform: 'uppercase' },
     closeBtn: { padding: 8 },
-    closeText: { fontSize: 16, color: '#007AFF' },
+    closeText: { fontSize: 16, color: '#ccc', fontWeight: '700', textTransform: 'uppercase' },
     content: { padding: 20 },
-    card: { backgroundColor: '#fff', padding: 20, borderRadius: 12, marginBottom: 16, shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 5, elevation: 2 },
-    sectionTitle: { fontSize: 18, fontWeight: '600', marginBottom: 12 },
-    progressBar: { height: 10, backgroundColor: '#eee', borderRadius: 5, overflow: 'hidden', marginBottom: 8 },
-    progressFill: { height: '100%', backgroundColor: '#4caf50' },
-    xpText: { fontSize: 12, color: '#666', textAlign: 'center' },
+    card: { backgroundColor: '#111', padding: 20, borderRadius: 4, marginBottom: 16, borderWidth: 1, borderColor: '#333' },
+    sectionTitle: { fontSize: 18, fontWeight: '900', marginBottom: 12, color: '#fff', letterSpacing: 1, textTransform: 'uppercase' },
+    progressBar: { height: 12, backgroundColor: '#333', borderRadius: 2, overflow: 'hidden', marginBottom: 8 },
+    progressFill: { height: '100%', backgroundColor: '#fff' },
+    xpText: { fontSize: 12, color: '#ccc', textAlign: 'center', fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace' },
     row: { flexDirection: 'row', marginBottom: 16 },
-    statLabel: { fontSize: 14, color: '#666', marginBottom: 4 },
-    statValue: { fontSize: 24, fontWeight: '700' },
-    hint: { fontSize: 12, color: '#888', marginBottom: 8 },
-    input: { borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 12, marginBottom: 16, fontSize: 16, backgroundColor: '#fafafa' },
+    statLabel: { fontSize: 12, color: '#ccc', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1 },
+    statValue: { fontSize: 24, fontWeight: '900', color: '#fff' },
+    hint: { fontSize: 12, color: '#999', marginBottom: 8 },
+    input: { borderWidth: 1, borderColor: '#333', borderRadius: 2, padding: 12, marginBottom: 16, fontSize: 16, backgroundColor: '#000', color: '#fff', fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace' },
     buttons: { flexDirection: 'row', gap: 12 },
-    backupBtn: { flex: 1, backgroundColor: '#222', padding: 14, borderRadius: 8, alignItems: 'center' },
-    restoreBtn: { flex: 1, backgroundColor: '#fff', borderWidth: 1, borderColor: '#222', padding: 14, borderRadius: 8, alignItems: 'center' },
-    btnText: { fontSize: 16, fontWeight: '600', color: '#fff' },
-    restoreBtnText: { color: '#222' } // This style wasn't used but logic implies restoreBtn has different text color if we want.
+    backupBtn: { flex: 1, backgroundColor: '#fff', padding: 14, borderRadius: 2, alignItems: 'center' },
+    restoreBtn: { flex: 1, backgroundColor: '#000', borderWidth: 1, borderColor: '#333', padding: 14, borderRadius: 2, alignItems: 'center' },
+    btnText: { fontSize: 14, fontWeight: '900', color: '#000', textTransform: 'uppercase', letterSpacing: 1 },
+    restoreBtnText: { color: '#fff' }
 });
 // Fix restore button text color
 styles.restoreBtn = { ...styles.restoreBtn, backgroundColor: '#fff' };

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -107,7 +107,7 @@ export default function FullStats({ history, goals, baseline, todayPoints, today
                         const height = Math.min(100, Math.max(10, (day.points / (baseline * 1.5)) * 100)); // Scale relative to baseline
                         return (
                             <View key={index} style={styles.barContainer}>
-                                <View style={[styles.bar, { height: `${height}%`, backgroundColor: day.points >= baseline ? '#4caf50' : '#222' }]} />
+                                <View style={[styles.bar, { height: `${height}%`, backgroundColor: day.points >= baseline ? '#fff' : '#333' }]} />
                                 <Text style={styles.barLabel}>{day.date}</Text>
                             </View>
                         );
@@ -137,20 +137,20 @@ export default function FullStats({ history, goals, baseline, todayPoints, today
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, padding: 20 },
-    header: { fontSize: 22, fontWeight: '700', marginBottom: 16, color: '#222' },
+    container: { flex: 1, padding: 20, backgroundColor: '#000' },
+    header: { fontSize: 22, fontWeight: '900', marginBottom: 16, color: '#fff', textTransform: 'uppercase', letterSpacing: 1 },
     row: { flexDirection: 'row', marginBottom: 12 },
-    card: { backgroundColor: '#fff', padding: 20, borderRadius: 12, marginBottom: 12, elevation: 1 },
-    label: { fontSize: 14, color: '#666', marginBottom: 4 },
-    value: { fontSize: 24, fontWeight: '700', color: '#222' },
-    subValue: { fontSize: 12, color: '#888', marginTop: 2 },
-    empty: { color: '#888', fontStyle: 'italic' },
-    lossItem: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff', padding: 16, borderRadius: 8, marginBottom: 8 },
-    lossTitle: { flex: 1, fontSize: 16, color: '#333' },
-    lossValue: { fontSize: 16, fontWeight: '700', color: '#d32f2f', marginRight: 12 },
+    card: { backgroundColor: '#111', padding: 20, borderRadius: 4, marginBottom: 12, borderWidth: 1, borderColor: '#333' },
+    label: { fontSize: 12, color: '#888', marginBottom: 4, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 },
+    value: { fontSize: 24, fontWeight: '900', color: '#fff' },
+    subValue: { fontSize: 12, color: '#ccc', marginTop: 2, fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace' },
+    empty: { color: '#888', fontStyle: 'italic', textAlign: 'center', marginTop: 20 },
+    lossItem: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#111', padding: 16, borderRadius: 4, marginBottom: 8, borderWidth: 1, borderColor: '#333' },
+    lossTitle: { flex: 1, fontSize: 14, color: '#fff', fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 },
+    lossValue: { fontSize: 16, fontWeight: '900', color: '#ff3b30', marginRight: 12 },
     lossCount: { fontSize: 12, color: '#888' },
     graphContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', height: 150, marginTop: 10, paddingBottom: 20 },
     barContainer: { alignItems: 'center', flex: 1 },
-    bar: { width: 12, borderRadius: 4 },
-    barLabel: { fontSize: 10, color: '#666', marginTop: 4 }
+    bar: { width: 12, borderRadius: 2 },
+    barLabel: { fontSize: 10, color: '#888', marginTop: 4 }
 });

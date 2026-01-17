@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { API_URL } from '../utils/config';
+
+const { width } = Dimensions.get('window');
 
 export default function AuthScreen({ onLogin }) {
     const [isRegister, setIsRegister] = useState(false);
@@ -20,7 +23,7 @@ export default function AuthScreen({ onLogin }) {
             const response = await fetch(`${API_URL}${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password, name: username }) // Use username as name for simplicity
+                body: JSON.stringify({ username, password, name: username })
             });
 
             const data = await response.json();
@@ -39,56 +42,144 @@ export default function AuthScreen({ onLogin }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Life is a Game</Text>
-            <Text style={styles.subtitle}>{isRegister ? 'Create Account' : 'Welcome Back'}</Text>
+            <LinearGradient
+                colors={['#0f0c29', '#302b63', '#24243e']}
+                style={styles.background}
+            />
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.keyboardView}>
+                <View style={styles.card}>
+                    <Text style={styles.title}>LIFE IS A GAME</Text>
+                    <Text style={styles.subtitle}>{isRegister ? 'INITIATE PROTOCOL' : 'RESUME MISSION'}</Text>
 
-            <View style={styles.form}>
-                <Text style={styles.label}>Username</Text>
-                <TextInput
-                    style={styles.input}
-                    value={username}
-                    onChangeText={setUsername}
-                    placeholder="Enter username"
-                    autoCapitalize="none"
-                />
+                    <View style={styles.form}>
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.label}>CODENAME</Text>
+                            <TextInput
+                                style={styles.input}
+                                value={username}
+                                onChangeText={setUsername}
+                                placeholder="ENTER ID"
+                                placeholderTextColor="#666"
+                                autoCapitalize="none"
+                            />
+                        </View>
 
-                <Text style={styles.label}>Password</Text>
-                <TextInput
-                    style={styles.input}
-                    value={password}
-                    onChangeText={setPassword}
-                    placeholder="Enter password"
-                    secureTextEntry
-                    autoCapitalize="none"
-                />
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.label}>ACCESS CODE</Text>
+                            <TextInput
+                                style={styles.input}
+                                value={password}
+                                onChangeText={setPassword}
+                                placeholder="ENTER KEY"
+                                placeholderTextColor="#666"
+                                secureTextEntry
+                                autoCapitalize="none"
+                            />
+                        </View>
 
-                <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit} disabled={loading}>
-                    {loading ? (
-                        <ActivityIndicator color="#fff" />
-                    ) : (
-                        <Text style={styles.btnText}>{isRegister ? 'Register & Start' : 'Login & Sync'}</Text>
-                    )}
-                </TouchableOpacity>
+                        <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit} disabled={loading}>
+                            {loading ? (
+                                <ActivityIndicator color="#000" />
+                            ) : (
+                                <Text style={styles.btnText}>{isRegister ? 'ESTABLISH LINK' : 'AUTHENTICATE'}</Text>
+                            )}
+                        </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => setIsRegister(!isRegister)} style={styles.switchBtn}>
-                    <Text style={styles.switchText}>
-                        {isRegister ? 'Already have an account? Login' : "Don't have an account? Register"}
-                    </Text>
-                </TouchableOpacity>
-            </View>
+                        <TouchableOpacity onPress={() => setIsRegister(!isRegister)} style={styles.switchBtn}>
+                            <Text style={styles.switchText}>
+                                {isRegister ? 'ALREADY OPERATIONAL? LOGIN' : "NEW RECRUIT? REGISTER"}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </KeyboardAvoidingView>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center', padding: 20, backgroundColor: '#fff' },
-    title: { fontSize: 32, fontWeight: 'bold', textAlign: 'center', marginBottom: 10 },
-    subtitle: { fontSize: 18, color: '#666', textAlign: 'center', marginBottom: 40 },
-    form: { gap: 16 },
-    label: { fontSize: 14, fontWeight: '600', color: '#333', marginBottom: 4 },
-    input: { borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 12, fontSize: 16, backgroundColor: '#fafafa' },
-    submitBtn: { backgroundColor: '#222', padding: 16, borderRadius: 8, alignItems: 'center', marginTop: 10 },
-    btnText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+    container: { flex: 1, backgroundColor: '#000' },
+    background: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        opacity: 0.8
+    },
+    keyboardView: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
+    card: {
+        width: width * 0.9,
+        padding: 30,
+        backgroundColor: '#111',
+        borderWidth: 1,
+        borderColor: '#333',
+        borderRadius: 4, // Sharper corners
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.5,
+        shadowRadius: 20,
+        elevation: 10,
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: '900',
+        color: '#fff',
+        textAlign: 'center',
+        marginBottom: 8,
+        letterSpacing: 2,
+        textTransform: 'uppercase'
+    },
+    subtitle: {
+        fontSize: 12,
+        color: '#888',
+        textAlign: 'center',
+        marginBottom: 40,
+        fontWeight: '700',
+        letterSpacing: 3,
+        textTransform: 'uppercase'
+    },
+    form: { gap: 24 },
+    inputContainer: { gap: 10 },
+    label: {
+        fontSize: 10,
+        fontWeight: '900',
+        color: '#555',
+        letterSpacing: 2,
+        textTransform: 'uppercase'
+    },
+    input: {
+        backgroundColor: '#000',
+        borderRadius: 2,
+        padding: 18,
+        fontSize: 16,
+        color: '#fff',
+        borderWidth: 1,
+        borderColor: '#333',
+        fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace', // Monospaced for tech feel
+    },
+    submitBtn: {
+        backgroundColor: '#fff', // High contrast
+        padding: 18,
+        borderRadius: 2,
+        alignItems: 'center',
+        marginTop: 10,
+        borderWidth: 1,
+        borderColor: '#fff'
+    },
+    btnText: {
+        color: '#000',
+        fontSize: 14,
+        fontWeight: '900',
+        letterSpacing: 2,
+        textTransform: 'uppercase'
+    },
     switchBtn: { alignItems: 'center', marginTop: 20 },
-    switchText: { color: '#007AFF', fontSize: 14 }
+    switchText: {
+        color: '#444',
+        fontSize: 10,
+        fontWeight: '700',
+        letterSpacing: 1,
+        textTransform: 'uppercase'
+    }
 });

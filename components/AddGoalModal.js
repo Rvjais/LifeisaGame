@@ -66,14 +66,14 @@ export default function AddGoalModal({ visible, onClose, onAdd, goalToEdit }) {
 }
 
 const styles = StyleSheet.create({
-    overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', padding: 20 },
-    modal: { backgroundColor: '#fff', borderRadius: 12, padding: 20 },
-    title: { fontSize: 20, fontWeight: '700', marginBottom: 20, textAlign: 'center' },
-    label: { fontSize: 14, color: '#666', marginBottom: 6 },
-    input: { borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 12, marginBottom: 16, fontSize: 16 },
-    buttons: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 },
-    cancelBtn: { padding: 12 },
-    cancelText: { color: '#666', fontSize: 16 },
-    addBtn: { backgroundColor: '#222', paddingVertical: 12, paddingHorizontal: 24, borderRadius: 8 },
-    addText: { color: '#fff', fontSize: 16, fontWeight: '600' }
+    overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', padding: 20 },
+    modal: { backgroundColor: '#111', borderRadius: 4, padding: 24, borderWidth: 1, borderColor: '#333' },
+    title: { fontSize: 20, fontWeight: '900', marginBottom: 24, textAlign: 'center', color: '#fff', textTransform: 'uppercase', letterSpacing: 1 },
+    label: { fontSize: 12, color: '#ccc', marginBottom: 8, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 },
+    input: { borderWidth: 1, borderColor: '#333', borderRadius: 2, padding: 14, marginBottom: 20, fontSize: 16, backgroundColor: '#000', color: '#fff', fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace' },
+    buttons: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, gap: 10 },
+    cancelBtn: { padding: 14, flex: 1, alignItems: 'center', borderWidth: 1, borderColor: '#333', borderRadius: 2 },
+    cancelText: { color: '#ccc', fontSize: 14, fontWeight: '700', textTransform: 'uppercase' },
+    addBtn: { backgroundColor: '#fff', paddingVertical: 14, paddingHorizontal: 24, borderRadius: 2, flex: 1, alignItems: 'center' },
+    addText: { color: '#000', fontSize: 14, fontWeight: '900', textTransform: 'uppercase', letterSpacing: 1 }
 });

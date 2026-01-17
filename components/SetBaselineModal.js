@@ -49,14 +49,14 @@ export default function SetBaselineModal({ visible, currentBaseline, onClose, on
 }
 
 const styles = StyleSheet.create({
-    overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', padding: 20 },
-    modal: { backgroundColor: '#fff', borderRadius: 12, padding: 20 },
-    title: { fontSize: 20, fontWeight: '700', marginBottom: 8, textAlign: 'center' },
-    desc: { fontSize: 14, color: '#666', marginBottom: 20, textAlign: 'center' },
-    input: { borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 12, marginBottom: 20, fontSize: 18, textAlign: 'center' },
-    buttons: { flexDirection: 'row', justifyContent: 'space-between' },
-    cancelBtn: { padding: 12, flex: 1, alignItems: 'center' },
-    cancelText: { color: '#666', fontSize: 16 },
-    saveBtn: { backgroundColor: '#222', paddingVertical: 12, borderRadius: 8, flex: 1, alignItems: 'center', marginLeft: 10 },
-    saveText: { color: '#fff', fontSize: 16, fontWeight: '600' }
+    overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', padding: 20 },
+    modal: { backgroundColor: '#111', borderRadius: 4, padding: 24, borderWidth: 1, borderColor: '#333' },
+    title: { fontSize: 20, fontWeight: '900', marginBottom: 8, textAlign: 'center', color: '#fff', textTransform: 'uppercase', letterSpacing: 1 },
+    desc: { fontSize: 12, color: '#ccc', marginBottom: 24, textAlign: 'center', fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace' },
+    input: { borderWidth: 1, borderColor: '#333', borderRadius: 2, padding: 14, marginBottom: 24, fontSize: 24, textAlign: 'center', backgroundColor: '#000', color: '#fff', fontWeight: 'bold' },
+    buttons: { flexDirection: 'row', justifyContent: 'space-between', gap: 10 },
+    cancelBtn: { padding: 14, flex: 1, alignItems: 'center', borderWidth: 1, borderColor: '#333', borderRadius: 2 },
+    cancelText: { color: '#ccc', fontSize: 14, fontWeight: '700', textTransform: 'uppercase' },
+    saveBtn: { backgroundColor: '#fff', paddingVertical: 14, borderRadius: 2, flex: 1, alignItems: 'center' },
+    saveText: { color: '#000', fontSize: 14, fontWeight: '900', textTransform: 'uppercase', letterSpacing: 1 }
 });

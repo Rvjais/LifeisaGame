@@ -385,17 +385,17 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f6f6f6' },
-  header: { padding: 20, borderBottomWidth: 1, borderBottomColor: '#e0e0e0', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  title: { fontSize: 22, fontWeight: '700', color: '#222' },
-  subtitle: { color: '#666', marginTop: 4 },
-  addBtnHeader: { padding: 8 },
-  addBtnText: { fontSize: 28, color: '#222', fontWeight: '300' },
+  container: { flex: 1, backgroundColor: '#000' },
+  header: { padding: 20, borderBottomWidth: 1, borderBottomColor: '#333', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#000' },
+  title: { fontSize: 22, fontWeight: '900', color: '#fff', letterSpacing: 1, textTransform: 'uppercase' },
+  subtitle: { color: '#ccc', marginTop: 4, fontSize: 12, fontWeight: '700', letterSpacing: 1, textTransform: 'uppercase' },
+  addBtnHeader: { padding: 8, borderWidth: 1, borderColor: '#fff', borderRadius: 2 },
+  addBtnText: { fontSize: 20, color: '#fff', fontWeight: '900' },
   list: { padding: 16 },
-  footer: { padding: 16, borderTopWidth: 1, borderTopColor: '#e8e8e8', backgroundColor: '#fff' },
-  buttonsRow: { marginTop: 12, flexDirection: 'row', justifyContent: 'space-between' },
-  saveBtn: { backgroundColor: '#222', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 },
-  saveText: { color: '#fff', fontWeight: '600' },
-  secondaryBtn: { paddingVertical: 10, paddingHorizontal: 16 },
-  secondaryText: { color: '#222', fontWeight: '600' }
+  footer: { padding: 16, borderTopWidth: 1, borderTopColor: '#333', backgroundColor: '#000' },
+  buttonsRow: { marginTop: 12, flexDirection: 'row', justifyContent: 'space-between', gap: 10 },
+  saveBtn: { backgroundColor: '#fff', paddingVertical: 12, paddingHorizontal: 16, borderRadius: 2, borderWidth: 1, borderColor: '#fff' },
+  saveText: { color: '#000', fontWeight: '900', textTransform: 'uppercase', letterSpacing: 1 },
+  secondaryBtn: { paddingVertical: 12, paddingHorizontal: 16, borderWidth: 1, borderColor: '#333', borderRadius: 2, backgroundColor: '#111' },
+  secondaryText: { color: '#fff', fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 }
 });

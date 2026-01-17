@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 
 export default function GoalItem({ item, completed, onToggle, onLongPress }) {
   return (
@@ -16,12 +16,12 @@ export default function GoalItem({ item, completed, onToggle, onLongPress }) {
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#efefef' },
-  checkbox: { width: 28, height: 28, borderRadius: 6, borderWidth: 1.5, borderColor: '#999', alignItems: 'center', justifyContent: 'center', marginRight: 12 },
-  checkboxOn: { backgroundColor: '#222', borderColor: '#222' },
-  inner: { width: 12, height: 12, backgroundColor: '#fff', borderRadius: 2 },
+  row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: '#222', backgroundColor: '#000' },
+  checkbox: { width: 24, height: 24, borderRadius: 2, borderWidth: 2, borderColor: '#777', alignItems: 'center', justifyContent: 'center', marginRight: 16 },
+  checkboxOn: { backgroundColor: '#fff', borderColor: '#fff' },
+  inner: { width: 12, height: 12, backgroundColor: '#000', borderRadius: 0 },
   meta: { flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  title: { color: '#111', fontSize: 16 },
-  titleDone: { color: '#999', textDecorationLine: 'line-through' },
-  points: { color: '#666' }
+  title: { color: '#fff', fontSize: 16, fontWeight: '600', letterSpacing: 0.5, fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace' },
+  titleDone: { color: '#777', textDecorationLine: 'line-through' },
+  points: { color: '#ccc', fontWeight: '700', fontSize: 12 }
 });

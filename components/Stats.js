@@ -42,10 +42,10 @@ export default function Stats({ history = [], todayPoints = 0, baselineHint = 50
 
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  small: { color: '#666' },
-  big: { color: '#111', fontSize: 18, fontWeight: '700' },
-  progressWrap: { height: 8, backgroundColor: '#f0f0f0', borderRadius: 6, marginTop: 10, overflow: 'hidden' },
-  progressBar: { height: '100%', backgroundColor: '#222' },
+  small: { color: '#ccc', fontSize: 12, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 },
+  big: { color: '#fff', fontSize: 20, fontWeight: '900', letterSpacing: 1 },
+  progressWrap: { height: 8, backgroundColor: '#333', borderRadius: 2, marginTop: 10, overflow: 'hidden' },
+  progressBar: { height: '100%', backgroundColor: '#fff' },
   rowSmall: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 },
-  stat: { color: '#666', fontSize: 12 }
+  stat: { color: '#888', fontSize: 10, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1 }
 });

@@ -22,6 +22,9 @@ mongoose.connect(MONGO_URI, {
     .catch(err => console.error('MongoDB Connection Error:', err));
 
 // Routes
+app.get('/', (req, res) => {
+    res.send('Life is a Game Backend is Running!');
+});
 app.use('/auth', authRoutes);
 
 if (require.main === module) {

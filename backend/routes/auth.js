@@ -8,8 +8,11 @@ const hashPassword = (password) => {
     return crypto.createHash('sha256').update(password).digest('hex');
 };
 
+const connectDB = require('../db');
+
 // Register
 router.post('/register', async (req, res) => {
+    await connectDB();
     const { username, password, name } = req.body;
 
     if (!username || !password) {
@@ -42,6 +45,7 @@ router.post('/register', async (req, res) => {
 
 // Login
 router.post('/login', async (req, res) => {
+    await connectDB();
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -68,6 +72,7 @@ router.post('/login', async (req, res) => {
 
 // Sync Data (Push)
 router.post('/sync', async (req, res) => {
+    await connectDB();
     const { username, password, data } = req.body;
 
     if (!username || !password || !data) {
